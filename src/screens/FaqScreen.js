@@ -1,0 +1,386 @@
+import React, {PureComponent} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  LayoutAnimation,
+  TouchableOpacity,
+  I18nManager,
+} from 'react-native';
+import {CardStyleInterpolators} from 'react-navigation-stack';
+import {UIActivityIndicator} from 'react-native-indicators';
+import {connect} from 'react-redux';
+import HTML from 'react-native-render-html';
+import {createSelector} from 'reselect';
+import ThemeStyle, {appTextStyle} from '../common/Theme.style';
+import base64 from 'react-native-base64';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Accordian from './Accordian';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
+
+class FaqScreen extends PureComponent {
+  static navigationOptions = ({navigation}) => {
+    const headerStyle = navigation.getParam('headerTitle');
+    const colorProps = navigation.getParam('colorProps');
+    const iconColor = navigation.getParam('iconColor');
+    return {
+      headerTitle: headerStyle,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      headerForceInset: {top: 'never', vertical: 'never'},
+      headerTintColor: iconColor,
+      headerStyle: {
+        backgroundColor: colorProps,
+        elevation: 0,
+        borderBottomWidth: 0,
+        shadowOpacity: 0,
+      },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        fontSize: appTextStyle.largeSize + 6,
+      },
+      headerTitleAlign: 'center',
+    };
+  };
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      headerTitle: this.props.language['FAQ'],
+      colorProps: this.props.themeStyle.primaryBackgroundColor,
+      iconColor: this.props.themeStyle.textColor,
+    });
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false,
+      spinnerTemp: false,
+      hide: false,
+      expanded: false,
+      menu: [
+        {
+          title:
+            'What is the Incorporation or founding date of WEACLIM SOLUTIONS PRIVATE LIMITED?',
+          data:
+            'WEACLIM SOLUTIONS PRIVATE LIMITED was incorporated on 07 Oct 2021 with Registrar of Companies RoC-Kanpur.',
+        },
+        {
+          title:
+            'What is authorized share capital and paid-up capital of WEACLIM SOLUTIONS PRIVATE LIMITED?',
+          data:
+            'The authorized share capital of WEACLIM SOLUTIONS PRIVATE LIMITED is ₹ 100,000.00 and paid-up capital is ₹ 100,000.00.',
+        },
+        {
+          title:
+            'Who are the current board members & directors of WEACLIM SOLUTIONS PRIVATE LIMITED?',
+          data:
+            'Currently 2 directors are associated with WEACLIM SOLUTIONS PRIVATE LIMITED.' +
+            '1. Ruchie Srivastava ' +
+            '2. Tarendra Prakash Srivastava',
+        },
+        {
+          title:
+            'What is the registered address of WEACLIM SOLUTIONS PRIVATE LIMITED?',
+          data:
+            'As per Ministry of Corporate Affairs (MCA), the registered address of WEACLIM SOLUTIONS PRIVATE LIMITED is House No.-74,Sector-28,Arun Vihar, Noida Gautam Buddha Nagar UP 201301 INDIA.',
+        },
+        {
+          title:
+            'What is the Corporate Identification Number (CIN) and Company Number of WEACLIM SOLUTIONS PRIVATE LIMITED?',
+          data:
+            'The Corporate Identification Number (CIN) of WEACLIM SOLUTIONS PRIVATE LIMITED is U74999UP2021PTC153520 and the company number is 153520 as per Ministry of Corporate Affairs (MCA).',
+        },
+        {
+          title:
+            'What is the PAN, TAN & GSTIN of WEACLIM SOLUTIONS PRIVATE LIMITED?',
+          data:
+            'The PAN, TAN & GSTIN of WEACLIM SOLUTIONS PRIVATE LIMITED is AADCW0764F, MRTW0123G & 09AADCW0764FIZA respectively.',
+        },
+        {
+          title:
+            'Is WEACLIM SOLUTIONS PRIVATE LIMITED recognised by StartUp India?',
+          data: 'Yes. Its Startup India Recognition Number is DIPP91015.',
+        },
+        {
+          title:
+            'What type of meteorological forecasts are provided by WeaClim Solutions Pvt Ltd?',
+          data:
+            'Global Forecast System (GFS) of National Centers for Environment Prediction Centre (NCEP) in USA produces an ensemble of predictions. Individually they are full description of the evolution of the weather. Collectively they indicate the likelihood of a range of future weather scenarios in the short and medium ranges of timeframe.WeaClim Solutions Pvt Ltd processes this data to provide two set of weather forecasts that are uploaded on the webpage https://www.weaclimsolutions.com. First set is the predicted meteorological parameters for various geographical regions covering the entire globe for 10 days using the appropriate visualisation package that generate the final product in form of pictures. Second set is generated by the Mesoscale Numerical Weather Prediction Model (NWP), the World Research Forecast (WRF) Model, in nested configuration, wherein GFS data is used as the input. Predicted meteorological products for the Indian Subcontinent are made available at a coarser resolution of 27km. Predictions for North, East,South &West India are available in the finer inner domains of 9Km. However, it is important to note that these are only predictions, and actual weather conditions may vary from what is forecasted. It is always important to consult multiple sources of weather information and to stay informed about developing weather conditions.',
+        },
+        {
+          title: 'How the predictions can be accessed and downloaded?',
+          data:
+            'Users need to select desired geographical area of interest and parameters using the dropdown menu at the company’s homepage https://www.weaclimsolutions.com. Predictions of the selected parameter for next ten days will be displayed in the form of thumbnails. User can select the date and time of prediction of interest and add it to the cart to purchase the high-resolution image of the selected parameter for the amount displayed in Indian Rupees (INR).',
+        },
+        {
+          title:
+            'What is the online purchase and payment process for the users?',
+          data:
+            'To purchase any product, the user will have to visit the webpage of the website where the product is available. Then click on the product to be purchased, click on & add to cart  & view cart  proceed to checkout & Place order …. you will be taken to the payment gateway. The payment gateway facilitates both national and international transactions through netbanking, credit and debitcards. Additionally, payment has also can also be done by the users in India through the QR Code and Unified Payment Interface (UPI) using the relevant mobile application. International customers are to note that the payments can be made through Debit / Credit Card. Amount of purchase added to the cart in INR is converted to equivalent amount in nine international currencies namely, USD, GBP, EURO, AUD, QAR, CHF, SGD, OMR & AED.',
+        },
+        {
+          title: 'Can the predicted products be tailor-made for the customers?',
+          data:
+            'Yes, predicted products can be tailor-made as per the specific requirement projected by the customer. In such cases the required meteorological product will have to processed by the Company after discussion with the operations team. The payment amount will have to be finalized through MoU. Transaction can be done through an online payment link that will be provided by WeaClim Solutions Pvt Ltd to the individual of the company concerned.',
+        },
+        {
+          title: 'How is prediction of Rainfall 24 Hr. interpreted?',
+          data:
+            'GFS rainfall data is a forecast of expected precipitation over a given area for a specific period of time. It can be used to help predict and plan for potential flooding, drought, and other weather-related events. Rainfall data is usually presented in the form of precipitation accumulation, which is the total amount of precipitation that is expected to fall over a given area during a specific time period in millimeters. Time period of 24 hours starts from 0300 UTC of the previous date and ends at 0300 UTC of the selected date.',
+        },
+        {
+          title: 'How is prediction of Clouds 24 Hr. interpreted?',
+          data:
+            'Clouds 24 Hr. shows predicted percentage of the sky covered by convective clouds which are formed by the vertical movement of air in the atmosphere and are associated with thunderstorms and other types of severe weather. The charts use shading from black to white with whiter shade depicting more intensity of convection on a scale ranging between 0 to 1.',
+        },
+        {
+          title:
+            'How is interpretation of Low Level Convergence useful to the meteorologists?',
+          data:
+            'In northern hemisphere, vorticity is +ve for cyclonic rotation (associated with convergence); –ve for anticyclonic rotation (associated with divergence). The Low-Level Vorticity, typically presented in units of 10^-5 s^-1, is typically displayed with warm colors ranging from shades of red (to yellow) indicating positive vorticity (cyclonic rotation), and cool colors shades of green (to blue) indicating negative vorticity (anticyclonic rotation). These charts help identifying areas of high and low vorticity, which can be associated with weather systems such as fronts, lows, and highs. It enables the weather forecasters to analyze and understand the behavior of weather systems in making more accurate predictions about future meteorological conditions. Signs of vorticity are opposite in the southern hemisphere. Low level convergence is the measure of vorticity at 850 hPa and is the tendency of an air particle to rotate or circulate around a particular point at that level. Convergence of air at any level means air is being brought in towards a location and to compensate for this, air ascends to higher levels in the troposphere (ascent) and/or air descends to lower levels in the troposphere (subsidence). Where there is ascent of air there is a tendency to develop cloud and precipitation. Where there is descent of air there is a tendency for clearance of cloud.',
+        },
+        {
+          title:
+            'How is interpretation of Upper Level Divergence useful to the meteorologists?',
+          data:
+            'Vorticity is an important concept in meteorology because it is a key factor in the formation and intensification of weather systems such as cyclones, anticyclones, and thunderstorms. The charts are typically presented in units of 10^-5 s^-1, which represents the change in rotation per unit time and unit length. In northern hemisphere positive vorticity values indicate counterclockwise (cyclonic) rotation, while negative values indicate clockwise (anticyclonic) rotation. Signs of vorticity become opposite in the southern hemisphere. Upper-Level Vorticity Charts are useful tools for meteorologists and weather forecasters to analyze and track these systems, and to make predictions about their future behavior. The upper level divergence is the measure of vorticity at 200 hPa depicting the magnitude and direction of horizontal rotation of the atmosphere in the upper levels. It is typically displayed in color, with warm colors such as red and yellow indicating positive vorticity (cyclonic rotation), and cool colors such as blue and green indicating negative vorticity (anticyclonic rotation). Isolines, or lines of equal vorticity, are also included on the charts to help identify areas of high and low vorticity, which can be associated with weather systems such as troughs, ridges, and jet streams. By combining the information from the Low-Level Convergence and the Upper-Level Divergence,meteorologists can gain complete understanding of the structure and behavior of weather systems in the atmosphere.',
+        },
+        {
+          title: 'How does Winds at 200 HPa help the weather forecasters?',
+          data:
+            'Upper Air Wind at 200 hPa refers to the predicted wind direction and speed at a pressure level of 200 hPa, which is located in the upper troposphere (approximately 12 kilometers or 7.5 miles above the Earth&#39;s surface). The winds are presented knots (kt), and the direction is given in degrees from true north. Jet streams are marked in shades of green for winds with magnitude of more than 60 kt. It is an important parameter that is used by meteorologists to analyze the atmospheric circulation patterns and predict the movement of weather systems. The wind at this level is often referred to as the & jet stream which is a narrow band of high-speed winds that can influence weather patterns over large areas. The depiction also shows the temperature along with the wind barb on the grid points at 200 hPa.',
+        },
+        {
+          title: 'How does Winds at 500 HPa help the weather forecasters?',
+          data:
+            'Upper Air Wind at 500 hPa refers to the predicted wind direction and speed at a pressure level of 500 hPa, which is located in the upper troposphere about 5.5 km above the Earth’s surface. The winds are presented in knots (kt), and the direction is given in degrees from true north. Winds with magnitude of more than 40 kt are marked in shades of green. It provides important information to meteorologists in forecasting weather patterns, including the movement and intensification of storms, the development of weather fronts, and the location and strength of high and low pressure systems. The depiction also shows the temperature along with the wind barb on the grid points at 500 hPa.',
+        },
+        {
+          title: 'How does Winds at 700 HPa help the weather forecasters?',
+          data:
+            'Upper Air Wind at 700 hPa refers to the predicted wind direction and speed at a pressure level of 700 hPa, which is located in the middle troposphere (approximately 3,000 meters or 10,000 feet above the Earth’s surface). The winds are presented in knots (kt), and the direction is given in degrees from true north. Winds with magnitude of more than 20 kt are marked in shades of red. It provides important information to meteorologists to study atmospheric dynamics and weather patterns. At this level, the wind speed and direction can influence the movement and development of weather systems such as storms, fronts, and high-pressure systems. The depiction also shows the temperature along with the wind barb on the grid points at 700 hPa.',
+        },
+        {
+          title: 'How does Winds at 850 HPa help the weather forecasters?',
+          data:
+            'Upper Air Wind at 850 hPa refers to the predicted wind direction and speed at a pressure level of 850 hPa, which is located in the lower troposphere (approximately 1,500 meters or 5,000 feet above the Earth’s surface). The winds are presented in knots (kt), and the direction is given in degrees from true north. Winds with magnitude of more than 20 kt are marked in shades of red. It is an important level for weather forecasting because it is close to the Earth’s surface and is strongly influenced by surface features such as mountains, valleys, and bodies of water.Meteorologists can gain insights into the strength and direction of wind flow in the lower troposphere, which can affect the movement of weather systems and the transport of heat, moisture, and pollutants in the atmosphere. The depiction also shows the temperature along with the wind barb on the grid points at 850 hPa.',
+        },
+        {
+          title:
+            'How does depiction of Mean Sea Level Pressure (MSLP) help the weather forecasters?',
+          data:
+            'MSLP charts typically show a color-coded contour map of atmospheric pressure at sea level, with lines of equal pressure (isobars) indicating areas of high and low pressure over a geographic area. Meteorologists use these charts to identify areas of high and low pressure, which can give indications of weather patterns such as the likelihood of storms, cold fronts, or warm fronts. The MSLP charts are also useful in identifying areas of convergence and divergence in the atmosphere, which can influence the formation of weather systems.',
+        },
+        {
+          title:
+            'What is the utility of Maximum & Minimum Temperature at 2m for the meteorologists?',
+          data:
+            '2m Temperature data is widely used by meteorologists, climatologists, and other researchers to study and forecast weather conditions. The data is usually provided in gridded format, with values available at regular intervals over a geographic region, typically covering the entire globe. 2m Temperature data can be used for a variety of applications, such as predicting the onset of heatwaves or cold spells, forecasting temperature trends, and studying the impact of weather on various systems and processes. Maximum Temperature depicts the highest temperatures at 2m above the ground surface between 0300 UTC of the previous date to 0300 UTC of the required date. This is an important variable for weather forecasting, as it determines the conditions at the Earth’s surface during the warmest part of the date, affecting human activities,agriculture, and the environment. Minimum Temperature depicts the lowest temperatures at 2m above the ground surface between 0300 UTC of the previous date to 0300 UTC of the required date. It is a key factor in defining the conditions at the Earth’s surface during the coldest part of the date that impacts human activities, agriculture, and the environment.',
+        },
+        {
+          title:
+            'How do the users interpret the location specific forecasts given by the Meteograms?',
+          data:
+            'Meteogram is a type of weather forecast graphic that displays predicted meteorological data over time for a particular location. In a Meteogram, various meteorological parameters such as temperature, precipitation, wind speed and direction, atmospheric pressure, cloud cover, and humidity are displayed on a graph over time. The horizontal axis typically represents the forecast period, ranging from a few hours to several days, while the vertical axis represents the values of the meteorological parameter being forecast. Meteograms can be useful for a wide range of applications, including aviation, agriculture, transportation, and outdoor activities. They provide a convenient way to quickly visualize and interpret complex weather data, allowing users to make informed decisions based on the latest weather information. WeaClim Solutions Pvt Ltd has customized the location specific predictions to a time frame with validity of ten days from the date of issue. It has eight panels that represent the information as discussed below:- First Panel at the bottom is the time height representation of the atmospheric profile from surface to 100 hPa level showing the magnitude and direction of winds through wind barbs, isotherm of temperature with freezing level depicted in black and the relative humidity contoured and shaded in green. Second, third and fourth panels show the oktas of low, medium and high clouds in red, green and blue colors, respectively. The fifth panel shows time height representation of Vertical Velocity (ω in Pa/Sec) contoured in shaded colors and the wind speed at 10 meters (kt). Vertical velocity shows the magnitude of vertical winds with negative values showing upward movement (causing formation of convective clouds) and positive values showing downward movement (leading to clear skies) of the airmass at the selected location. The sixth panel shows the Hourly Rainfall (in cm) along with Surface Dry Bulb and Dew Point Temperatures ( o C) over the time period of next ten days. The seventh panel shows the values of predicted Maximum and Minimum Temperature ( o C), Rainfall amount (in cm) and time of Maximum Winds (kt) expected during the next three days. The eight panel at the top gives the general information on name of the selected location, time of initial conditions (in UTC), latitude and longitude of the location and its model elevation.',
+        },
+      ],
+    };
+  }
+
+  toggleExpand = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    this.setState({expanded: !this.state.expanded});
+  };
+
+  renderAccordians = () => {
+    const items = [];
+    for (let item of this.state.menu) {
+      items.push(<Accordian title={item.title} data={item.data} />);
+    }
+    return items;
+  };
+
+  /// ///////////////////////////////////////
+  render() {
+    return (
+      <View style={styles.container}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: '#f7f5f5',
+          }}>
+          <TouchableOpacity
+            style={styles.backIconView}
+            onPress={() => {
+              this.props.navigation.pop();
+            }}>
+            <Ionicons
+              name={
+                I18nManager.isRTL
+                  ? 'chevron-forward-outline'
+                  : 'chevron-back-outline'
+              }
+              style={[
+                styles.backIconStyle,
+                {
+                  color: this.props.themeStyle.textColor,
+                  fontSize: appTextStyle.largeSize + 14,
+                },
+              ]}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              color: 'black',
+              marginLeft: 100,
+              fontWeight: 'bold',
+              fontSize: 20,
+            }}>
+            FAQ
+          </Text>
+          <TouchableOpacity
+            // style={{backgroundColor:'red'}}
+            onPress={() => this.props.navigation.navigate('Home1Screen')}>
+            <Image
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: 'black',
+                marginLeft: 140,
+              }}
+              source={require('../images/homeicon3.png')}
+            />
+          </TouchableOpacity>
+        </View>
+        <LinearGradient
+            colors={['#fff', '#92DFF3', '#fff']}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            style={{flex: 1}}>
+        <ScrollView>
+          <View style={{padding: 10}}>
+            <Text style={styles.heading}>Welcome, How can we help you?</Text>
+            <Text style={styles.para}>
+              {
+                'We warrant that your information including the sensitive information submitted by you is protected both online and off-line. While you are making the payment, the page is secure, encrypted and protected with the best encryption software in the industry.'
+              }
+            </Text>
+            {this.renderAccordians()}
+          </View>
+        </ScrollView>
+        </LinearGradient>
+      </View>
+
+      //         <View>
+      //         <TouchableOpacity ref={this.accordian} style={styles.row} onPress={()=>this.toggleExpand()}>
+      //             <Text style={[styles.title, styles.font]}>{this.state.menu.title}</Text>
+      //             <Icon name={this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color='red' />
+      //         </TouchableOpacity>
+      //         <View style={styles.parentHr}/>
+      //         {
+      //             this.state.expanded &&
+      //             <View style={styles.child}>
+      //                 <Text>{this.state.data}</Text>
+      //             </View>
+      //         }
+
+      //    </View>
+    );
+  }
+}
+const getTheme = state => state.appConfig.themeStyle;
+const getLanguage = state => state.appConfig.languageJson;
+const getSettings = state => state.settingsCall.aboutUs;
+const getLanguageFun = createSelector(
+  [getLanguage],
+  getLanguage => {
+    return getLanguage;
+  },
+);
+const getSettingsFun = createSelector(
+  [getSettings],
+  getSettings => {
+    return getSettings;
+  },
+);
+const getThemeFun = createSelector(
+  [getTheme],
+  getTheme => {
+    return getTheme;
+  },
+);
+const mapStateToProps = state => ({
+  themeStyle: getThemeFun(state),
+  settings: getSettingsFun(state),
+  language: getLanguageFun(state),
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(FaqScreen);
+
+const styles = StyleSheet.create({
+  activityIndicatorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  heading: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: 'black',
+    padding: 5,
+    // alignSelf: 'center'
+  },
+  para: {
+    padding: 5,
+    color: 'black',
+  },
+  smallhead: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'red',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 56,
+    paddingLeft: 25,
+    paddingRight: 18,
+    alignItems: 'center',
+    backgroundColor: 'grey',
+  },
+  parentHr: {
+    height: 1,
+    color: 'white',
+    width: '100%',
+  },
+  child: {
+    backgroundColor: 'grey',
+    padding: 16,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  backIconView: {
+    padding: 10,
+    alignSelf: 'flex-start',
+  },
+  backIconStyle: {
+    alignSelf: 'flex-start',
+  },
+});

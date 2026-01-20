@@ -1,0 +1,19 @@
+weaclim solutions
+
+// wp admin detail
+URL:- https://weaclimsolutions.com/wp-admin
+Username:- admin
+Password:- 3AK%mGj%r$
+
+
+//Ftp details
+FTP Username: appsdev@weaclimsolutions.com
+FTP server: weaclimsolutions.com
+FTP & explicit FTPS port:  21
+Password:- fPZ=wCji;D_Q
+
+
+//Google play console
+tarendrasrivastava@gmail.com
+Tango19460
+
