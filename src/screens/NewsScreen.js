@@ -68,7 +68,7 @@ class Login extends PureComponent {
   }
 
   /// /////////////////////////////////////////////////////////
-  componentDidMount () {
+  componentDidMount() {
     this.props.navigation.setParams({
       headerTitle: this.props.language.News,
       colorProps: this.props.themeStyle.primaryBackgroundColor,
@@ -78,7 +78,7 @@ class Login extends PureComponent {
   }
 
   /// //////////////////////////////////////////////////////////
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       spinnerTemp: false,
@@ -149,67 +149,67 @@ class Login extends PureComponent {
   //   })
   // }
   getPosts = async () => {
-  this.setState({ temp: true });
+    this.setState({ temp: true });
 
-  const query = `lang=${this.props.languageCode}&currency=${this.props.currencyCode}&orderby=date&order=desc`;
+    const query = `lang=${this.props.languageCode}&currency=${this.props.currencyCode}&orderby=date&order=desc`;
 
-  const json = await getFetchHttp(
-    `${ThemeStyle.url}/wp-json/wp/v2/posts/?page=${this.state.page}&${query}`,
-    {}
-  );
+    const json = await getFetchHttp(
+      `${ThemeStyle.url}/wp-json/wp/v2/posts/?page=${this.state.page}&${query}`,
+      {}
+    );
 
-  if (json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+    if (json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
 
-    if (this.state.page === 1) {
-      this.setState({ posts: [] });
-      this.getCategories();
+      if (this.state.page === 1) {
+        this.setState({ posts: [] });
+        this.getCategories();
+      }
+
+      for (const post of json.data) {
+        await this.getImagePost(post);
+      }
+
+      this.setState({
+        featuredPosts: json.data,
+        isRefreshing: false,
+        callStart: true
+      });
     }
-
-    for (const post of json.data) {
-      await this.getImagePost(post);
-    }
-
-    this.setState({
-      featuredPosts: json.data,
-      isRefreshing: false,
-      callStart: true
-    });
-  }
-};
+  };
 
   getImagePost = async (post) => {
-  // default image
-  post.image = require('../images/dumy.jpg');
+    // default image
+    post.image = require('../images/dumy.jpg');
 
-  try {
-    // Check if featured image exists
-    if (post._links && post._links['wp:featuredmedia']) {
+    try {
+      // Check if featured image exists
+      if (post._links && post._links['wp:featuredmedia']) {
 
-      // API call
-      const json = await getFetchHttp(post._links['wp:featuredmedia'][0].href, {});
+        // API call
+        const json = await getFetchHttp(post._links['wp:featuredmedia'][0].href, {});
 
-      console.log("MEDIA JSON:", json);
+        console.log("MEDIA JSON:", json);
 
-      if (json && json.status === 'success' && json.data) {
-        // WordPress featured image
-        const media = json.data;
+        if (json && json.status === 'success' && json.data) {
+          // WordPress featured image
+          const media = json.data;
 
-        if (media.source_url) {
-          post.image = media.source_url;
-          console.log("FINAL IMAGE:", post.image);
+          if (media.source_url) {
+            post.image = media.source_url;
+            console.log("FINAL IMAGE:", post.image);
+          }
         }
       }
+    } catch (e) {
+      console.log("IMAGE ERROR:", e);
     }
-  } catch (e) {
-    console.log("IMAGE ERROR:", e);
-  }
 
-  // Save post
-  this.setState({
-    posts: [...this.state.posts, post],
-    indicatorValue: false
-  });
-};
+    // Save post
+    this.setState({
+      posts: [...this.state.posts, post],
+      indicatorValue: false
+    });
+  };
 
 
   getCategories = async () => {
@@ -260,7 +260,7 @@ class Login extends PureComponent {
     }
   }
 
-  getRandomPost () {
+  getRandomPost() {
     const rand = this.state.posts[Math.floor(Math.random() * this.state.posts.length)]
     if (rand.sticky === false) return rand
     else this.getRandomPost()
@@ -283,7 +283,7 @@ class Login extends PureComponent {
     })
   }
 
-  onRefreshTemp () {
+  onRefreshTemp() {
     this.setState({ isRefreshing: true, page: 1 }, () => {
       this.getPosts()
     })
@@ -304,18 +304,18 @@ class Login extends PureComponent {
       }}>
       {!this.state.callStart &&
         this.state.arrayLength > 9 ? (
-          <View style={{ height: 20, marginTop: 30 }}>
-            <UIActivityIndicator
-              size={27}
-              count={12}
-              color={this.props.themeStyle.primary}
-            />
-          </View>
-        ) : null}
+        <View style={{ height: 20, marginTop: 30 }}>
+          <UIActivityIndicator
+            size={27}
+            count={12}
+            color={this.props.themeStyle.primary}
+          />
+        </View>
+      ) : null}
     </View>
   )
 
-  handleLoadMore () {
+  handleLoadMore() {
     if (this.state.arrayLength > 9 &&
       this.state.callStart) {
       this.state.page = this.state.page + 1
@@ -325,7 +325,7 @@ class Login extends PureComponent {
     }
   }
 
-  handleScroll (event) {
+  handleScroll(event) {
     if (
       this.state.fabB &&
       event.nativeEvent.contentOffset.y >= 0 &&
@@ -335,19 +335,21 @@ class Login extends PureComponent {
     }
   }
 
-  render () {
+  render() {
     return (
-
       <View
         style={[styles.container, {
           backgroundColor: this.props.themeStyle.primaryBackgroundColor
         }]}>
 
+
+
         {
           this.props.navigation.state.params !== undefined
             ? this.props.navigation.state.params.headerHide === undefined
-              ? <Header searchIcon={true} menuIcon={true} cartIcon={true} navigation={this.props.navigation} name={this.props.language.News}/>
-              : null : null }
+              ? <Header
+                backIcon={true} searchIcon={false} menuIcon={false} cartIcon={false} navigation={this.props.navigation} name={this.props.language.News} />
+              : null : null}
         <Toast
           ref={ref => { this.toast = ref }}
           style={{ backgroundColor: this.props.themeStyle.iconPrimaryColor }}
@@ -462,9 +464,9 @@ class Login extends PureComponent {
                     //   openSubCategories={(t, n) => this.openSubCategories(t, n)}
                     // />
                     // nikia add this code
-                    
+
                     <NewsCard
-                    
+
                       item={item.item}
                       id={item.index}
                       themeStyle={this.props.themeStyle}
@@ -535,8 +537,8 @@ class Login extends PureComponent {
         </View>
       </View>
 
-    //    )}
-    //  />
+      //    )}
+      //  />
     )
   }
 }
@@ -616,7 +618,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between',
     // alignItems: 'center'
   },
-   backIconView: {
+  backIconView: {
     padding: 10,
     alignSelf: 'flex-start'
   },
