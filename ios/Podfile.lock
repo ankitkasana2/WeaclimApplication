@@ -541,39 +541,15 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
-  - RNGestureHandler (2.12.1):
+  - RNGestureHandler (2.14.0):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNRate (1.2.12):
     - React-Core
-  - RNReanimated (3.3.0):
-    - DoubleConversion
-    - FBLazyVector
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React-callinvoker
+  - RNReanimated (3.6.1):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
-    - React-Core/DevSupport
-    - React-Core/RCTWebSocket
-    - React-CoreModules
-    - React-cxxreact
-    - React-hermes
-    - React-jsi
-    - React-jsiexecutor
-    - React-jsinspector
-    - React-RCTActionSheet
-    - React-RCTAnimation
-    - React-RCTAppDelegate
-    - React-RCTBlob
-    - React-RCTImage
-    - React-RCTLinking
-    - React-RCTNetwork
-    - React-RCTSettings
-    - React-RCTText
     - ReactCommon/turbomodule/core
-    - Yoga
   - RNScreens (3.22.0):
     - React-Core
     - React-RCTImage
@@ -843,9 +819,9 @@ SPEC CHECKSUMS:
   RNCMaskedView: 4c5ee1c8667d56077246cc6d1977f77393923560
   RNDeviceInfo: e958a6b5adfb7b16d360fb138affe8fc2cfdc288
   RNFastImage: 462a183c4b0b6b26fdfd639e1ed6ba37536c3b87
-  RNGestureHandler: 627182485becfd74f122c83f93cce2be20c2e8c8
+  RNGestureHandler: dc1acdc779554be3aa733f4a9a19bb782ec3a48c
   RNRate: 7641919330e0d6688ad885a985b4bd697ed7d14c
-  RNReanimated: 66b73d76033ee90993b08707aea68416eae2ebc5
+  RNReanimated: 49a1e0d191bdaefe1b394eb258bc52a42bcf704c
   RNScreens: f112bc5442a9a0e468809c107a43f55882d6cd98
   RNSnackbar: c1b235eb606b03938c693ce769ed3059c31dff9b
   RNVectorIcons: 1f688883f7dfb5b346a03689800a88c5e3376029
