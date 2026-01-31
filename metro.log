@@ -1,0 +1,107 @@
+yarn run v1.22.22
+warning ../../../package.json: No license field
+$ react-native start --reset-cache
+warn Package native-base contains invalid configuration: "dependency.assets" is not allowed. Please verify it's properly linked using "react-native config" command and contact the package maintainers about this.
+warn Package react-native-vector-icons contains invalid configuration: "dependency.assets" is not allowed. Please verify it's properly linked using "react-native config" command and contact the package maintainers about this.
+
+                        ▒▒▓▓▓▓▒▒
+                     ▒▓▓▓▒▒░░▒▒▓▓▓▒
+                  ▒▓▓▓▓░░░▒▒▒▒░░░▓▓▓▓▒
+                 ▓▓▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓
+                 ▓▓░░░░░▒▓▓▓▓▓▓▒░░░░░▓▓
+                 ▓▓░░▓▓▒░░░▒▒░░░▒▓▒░░▓▓
+                 ▓▓░░▓▓▓▓▓▒▒▒▒▓▓▓▓▒░░▓▓
+                 ▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░▓▓
+                 ▓▓▒░░▒▒▓▓▓▓▓▓▓▓▒░░░▒▓▓
+                  ▒▓▓▓▒░░░▒▓▓▒░░░▒▓▓▓▒
+                     ▒▓▓▓▒░░░░▒▓▓▓▒
+                        ▒▒▓▓▓▓▒▒
+
+
+warning: the transform cache was reset.
+                Welcome to Metro v0.76.5
+              Fast - Scalable - Integrated
+
+
+warning: Watchman `watch-project` returned a warning: Recrawled this watch 5 times, most recently because:
+MustScanSubDirs UserDroppedTo resolve, please review the information on
+https://facebook.github.io/watchman/docs/troubleshooting.html#recrawl
+To clear this warning, run:
+`watchman watch-del '/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication' ; watchman watch-project '/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication'`
+
+warning: Watchman `query` returned a warning: Recrawled this watch 5 times, most recently because:
+MustScanSubDirs UserDroppedTo resolve, please review the information on
+https://facebook.github.io/watchman/docs/troubleshooting.html#recrawl
+To clear this warning, run:
+`watchman watch-del '/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication' ; watchman watch-project '/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication'`
+
+Recrawled this watch 5 times, most recently because:
+MustScanSubDirs UserDroppedTo resolve, please review the information on
+https://facebook.github.io/watchman/docs/troubleshooting.html#recrawl
+To clear this warning, run:
+`watchman watch-del '/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication' ; watchman watch-project '/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication'`
+
+[metro-file-map] Warning: Lost connection to Watchman, reconnecting..
+2026-01-31T18:27:53,868: [cli] getpwuid(501) failed: Bad file descriptor.  I don't know who you are
+
+Fatal error detected at:
+0   libfolly.0.58.0-dev.dylib           0x0000000102ae85ec _ZN5folly10symbolizer17getStackTraceSafeEPmm + 12
+1   libfolly.0.58.0-dev.dylib           0x0000000102ae97b0 _ZN5folly10symbolizer21SafeStackTracePrinter15printStackTraceEb + 80
+2   watchman                            0x00000001007dcf54 _ZL15log_stack_tracev + 60
+
+3   watchman                            0x00000001007dce98 _ZN8watchman3Log13doLogToStdErrEv + 532
+
+4   watchman                            0x00000001007db1ec _ZN8watchman9Publisher7enqueueEO8json_ref + 668
+
+5   watchman                            0x000000010075c238 _ZN8watchman3Log3logIJRA10_KcRjRA11_S2_NSt3__112basic_stringIcNS8_11char_traitsIcEENS8_9allocatorIcEEEERA29_S2_EEEvNS_8LogLevelEDpOT_ + 388
+
+6   watchman                            0x00000001007564c0 main + 1744
+7   dyld                                0x0000000181df9d54 start + 7184
+(safe mode, symbolizer not available)
+
+Watchman:  watchman --no-pretty get-sockname returned with exit code=1, signal=null, stderr= 2026-01-31T18:27:53,868: [cli] getpwuid(501) failed: Bad file descriptor.  I don't know who you are
+Fatal error detected at:
+0   libfolly.0.58.0-dev.dylib           0x0000000102ae85ec _ZN5folly10symbolizer17getStackTraceSafeEPmm + 12
+1   libfolly.0.58.0-dev.dylib           0x0000000102ae97b0 _ZN5folly10symbolizer21SafeStackTracePrinter15printStackTraceEb + 80
+2   watchman                            0x00000001007dcf54 _ZL15log_stack_tracev + 60
+3   watchman                            0x00000001007dce98 _ZN8watchman3Log13doLogToStdErrEv + 532
+4   watchman                            0x00000001007db1ec _ZN8watchman9Publisher7enqueueEO8json_ref + 668
+5   watchman                            0x000000010075c238 _ZN8watchman3Log3logIJRA10_KcRjRA11_S2_NSt3__112basic_stringIcNS8_11char_traitsIcEENS8_9allocatorIcEEEERA29_S2_EEEvNS_8LogLevelEDpOT_ + 388
+6   watchman                            0x00000001007564c0 main + 1744
+7   dyld                                0x0000000181df9d54 start + 7184
+(safe mode, symbolizer not available)
+
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: watchman --no-pretty get-sockname returned with exit code=1, signal=null, stderr= 2026-01-31T18:27:53,868: [cli] getpwuid(501) failed: Bad file descriptor.  I don't know who you are
+Fatal error detected at:
+0   libfolly.0.58.0-dev.dylib           0x0000000102ae85ec _ZN5folly10symbolizer17getStackTraceSafeEPmm + 12
+1   libfolly.0.58.0-dev.dylib           0x0000000102ae97b0 _ZN5folly10symbolizer21SafeStackTracePrinter15printStackTraceEb + 80
+2   watchman                            0x00000001007dcf54 _ZL15log_stack_tracev + 60
+3   watchman                            0x00000001007dce98 _ZN8watchman3Log13doLogToStdErrEv + 532
+4   watchman                            0x00000001007db1ec _ZN8watchman9Publisher7enqueueEO8json_ref + 668
+5   watchman                            0x000000010075c238 _ZN8watchman3Log3logIJRA10_KcRjRA11_S2_NSt3__112basic_stringIcNS8_11char_traitsIcEENS8_9allocatorIcEEEERA29_S2_EEEvNS_8LogLevelEDpOT_ + 388
+6   watchman                            0x00000001007564c0 main + 1744
+7   dyld                                0x0000000181df9d54 start + 7184
+(safe mode, symbolizer not available)
+
+    at ChildProcess.<anonymous> (/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication/node_modules/fb-watchman/index.js:203:18)
+    at ChildProcess.emit (node:events:518:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at Socket.<anonymous> (node:internal/child_process:456:11)
+    at Socket.emit (node:events:518:28)
+    at Pipe.<anonymous> (node:net:346:12)
+Emitted 'error' event on WatchmanWatcher instance at:
+    at Client.<anonymous> (/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication/node_modules/metro-file-map/src/watchers/WatchmanWatcher.js:107:12)
+    at Client.emit (node:events:518:28)
+    at spawnError (/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication/node_modules/fb-watchman/index.js:174:10)
+    at ChildProcess.<anonymous> (/Users/cnelindia/Desktop/WeaclimApplication/WeaclimApplication/node_modules/fb-watchman/index.js:203:7)
+    at ChildProcess.emit (node:events:518:28)
+    [... lines matching original stack trace ...]
+    at Pipe.<anonymous> (node:net:346:12)
+
+Node.js v22.17.1
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

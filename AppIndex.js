@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import Appp from './App'
 import { NetworkProvider, NetworkConsumer, ReduxNetworkProvider } from 'react-native-offline'
 import ThemeStyle, { appTextStyle } from './src/common/Theme.style'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 export default class AppIndex extends Component {
   CheckConnectivity = () => {
     if (Platform.OS === 'android') {
@@ -48,85 +49,87 @@ export default class AppIndex extends Component {
 
   render () {
     return (
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <NetworkProvider >
-            <NetworkConsumer>
-              {({ isConnected }) =>
-                isConnected ? (
-                  <ReduxNetworkProvider>
-                    <Root>
-                      <Appp />
-                    </Root>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <NetworkProvider >
+              <NetworkConsumer>
+                {({ isConnected }) =>
+                  isConnected ? (
+                    <ReduxNetworkProvider>
+                      <Root>
+                        <Appp />
+                      </Root>
 
-                  </ReduxNetworkProvider>
-                ) : (
-                  <View style={{ flex: 1, backgroundColor: ThemeStyle.backgroundColor }}>
-                    {Platform.OS === 'ios' ? (
-                      <View style={{ height: 36, backgroundColor: '#51688F' }} />
-                    ) : null}
+                    </ReduxNetworkProvider>
+                  ) : (
+                    <View style={{ flex: 1, backgroundColor: ThemeStyle.backgroundColor }}>
+                      {Platform.OS === 'ios' ? (
+                        <View style={{ height: 36, backgroundColor: '#51688F' }} />
+                      ) : null}
 
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: ThemeStyle.backgroundColor,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        paddingBottom: 170
-                      }}
-                    >
-                      <ImageLoad
-                        key={'key'}
-                        style={{ width: 200, height: 200 }}
-                        loadingStyle={{ size: 'large', color: ThemeStyle.primary }}
-                        placeholderSource={require('./src/images/wifi.png')}
-                        placeholderStyle={{ width: 200, height: 300 }}
-                        source={require('./src/images/wifi.png')}
-                      />
-                      <Text style={{
-                        fontSize: 22,
-                        fontFamily: appTextStyle.fontFamily
-                      }}>
-                        No internet {'\n'}
-                        Try:{'\n'}
-                        Reconnecting to Wi-Fi
-                      </Text>
-                      <TouchableOpacity
-                        onPress={() =>
-                          RNRestart.Restart()
-                        }
+                      <View
+                        style={{
+                          flex: 1,
+                          backgroundColor: ThemeStyle.backgroundColor,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          paddingBottom: 170
+                        }}
                       >
-                        <View
-                          style={{
-                            marginTop: 18,
-                            borderColor: '#51688F',
-                            alignItems: 'center',
-                            height: 38,
-                            width: 90,
-                            backgroundColor: '#51688F',
-                            justifyContent: 'center'
-                          }}
+                        <ImageLoad
+                          key={'key'}
+                          style={{ width: 200, height: 200 }}
+                          loadingStyle={{ size: 'large', color: ThemeStyle.primary }}
+                          placeholderSource={require('./src/images/wifi.png')}
+                          placeholderStyle={{ width: 200, height: 300 }}
+                          source={require('./src/images/wifi.png')}
+                        />
+                        <Text style={{
+                          fontSize: 22,
+                          fontFamily: appTextStyle.fontFamily
+                        }}>
+                          No internet {'\n'}
+                          Try:{'\n'}
+                          Reconnecting to Wi-Fi
+                        </Text>
+                        <TouchableOpacity
+                          onPress={() =>
+                            RNRestart.Restart()
+                          }
                         >
-                          <Text
+                          <View
                             style={{
-                              textAlign: 'center',
-                              color: '#fff',
-                              fontSize: 15,
-                              fontFamily: appTextStyle.fontFamily
+                              marginTop: 18,
+                              borderColor: '#51688F',
+                              alignItems: 'center',
+                              height: 38,
+                              width: 90,
+                              backgroundColor: '#51688F',
+                              justifyContent: 'center'
                             }}
                           >
-                            Try Again
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
+                            <Text
+                              style={{
+                                textAlign: 'center',
+                                color: '#fff',
+                                fontSize: 15,
+                                fontFamily: appTextStyle.fontFamily
+                              }}
+                            >
+                              Try Again
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                )
-              }
-            </NetworkConsumer>
-          </NetworkProvider>
-        </PersistGate>
-      </Provider>
+                  )
+                }
+              </NetworkConsumer>
+            </NetworkProvider>
+          </PersistGate>
+        </Provider>
+      </SafeAreaProvider>
     )
   }
 }
