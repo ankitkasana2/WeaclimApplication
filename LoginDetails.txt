@@ -17,3 +17,11 @@ Password:- fPZ=wCji;D_Q
 tarendrasrivastava@gmail.com
 Tango19460
 
+
+
+//Apple developer account
+tarendrasrivastava@gmail.com
+Hqswac@19460
+
+bundle identifier
+org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)

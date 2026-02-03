@@ -217,6 +217,7 @@ const HomeStackNavigator = createStackNavigator({
     navigationOptions: () => ({
       gestureEnabled: false,
       title: 'Shop',
+      headerTitleAlign: "left",
       headerTitleStyle: {
         marginRight: 80,
         alignSelf: 'center',

@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "npx jetify"
+    "postinstall": "npx jetify",
+    "bundleAndroid": "cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
